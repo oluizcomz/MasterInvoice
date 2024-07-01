@@ -29,4 +29,4 @@ Este projeto é um sistema financeiro desenvolvido como parte do teste técnico da
 
 ## Contato
 
-Para mais informações, entre em contato através de [seu-email@exemplo.com](mailto:luiznetosilva@hotmail.com).
+Para mais informações, entre em contato através de [luiznetosilva@hotmail.com](mailto:luiznetosilva@hotmail.com).
