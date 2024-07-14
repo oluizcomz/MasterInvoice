@@ -27,6 +27,13 @@ Este projeto é um sistema financeiro desenvolvido como parte do teste técnico da
 
 
 
+
+
 ## Contato
 
 Para mais informações, entre em contato através de [luiznetosilva@hotmail.com](mailto:luiznetosilva@hotmail.com).
+
+## Correções
+ Alterar cards do dashboard
+ Melhor desempenho reuicição do dashboard 
+ ALterar DOCK

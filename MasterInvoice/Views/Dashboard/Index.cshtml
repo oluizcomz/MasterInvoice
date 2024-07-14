@@ -1,0 +1,120 @@
+﻿@model Entities.DashBoardModelView
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<link rel="stylesheet" href="~/css/dashBoard.css" />
+
+<div class="container">
+    <form asp-action="Index" method="get">
+        <div class="row my-2">
+            <div class="col-sm d-flex justify-content-end align-items-center">
+                <div class="d-flex">
+                    <label for="filterDateInit" class="me-2">Período:</label>
+                    <input type="month" id="filterDateInit" name="filterDateInit" class="form-control me-2" value="@ViewBag.filterDateInit?.ToString("yyyy-MM")">
+                    <label for="filterDateFinal" class="me-2">até</label>
+                    <input type="month" id="filterDateFinal" name="filterDateFinal" class="form-control me-2" value="@ViewBag.filterDateFinal?.ToString("yyyy-MM")">
+                    <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+                </div>
+            </div>
+        </div>
+
+                
+    </form>
+
+    <!-- Indicadores -->
+    <div class="row">
+        <div class="col-md-4 mt-2">
+            <div class="card l-bg-cherry">
+                <div class="card-body p-4">
+                    <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.Issued)</h5>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <h2 class="d-flex align-items-center mb-0" id="Issued">
+                           R$ @Model.Issued
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-2">
+            <div class="card l-bg-cherry">
+                <div class="card-body p-4">
+                    <div class="card-icon card-icon-large"><i class="bi bi-basket3"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.NoCharge)</h5>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <h2 class="d-flex align-items-center mb-0" id="NoCharge">R$ @Model.NoCharge</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-2">
+            <div class="card l-bg-cherry">
+               <div class="card-body p-4">
+                    <div class="card-icon card-icon-large"><i class="bi bi-cash"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.LatePayment)</h5>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <h2 class="d-flex align-items-center mb-0" id="LatePayment">R$ @Model.LatePayment</h2>
+                    </div>
+               </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-2">
+            <div class="card l-bg-cherry">
+                <div class="card-body p-4">
+                    <div class="card-icon card-icon-large"><i class="bi bi-cash-coin"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.DuePayment)</h5>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <h2 class="d-flex align-items-center mb-0" id="DuePayment">R$ @Model.DuePayment</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  mt-2">
+            <div class="card l-bg-cherry">
+                <div class="card-body p-4">
+                    <div class="card-icon card-icon-large"><i class="bi bi-currency-dollar"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.PaymentMade)</h5>
+                    <div class="row align-items-center mb-2 d-flex">
+                        <h2 class="d-flex align-items-center mb-0" id="PaymentMade">R$@Model.PaymentMade</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row  mt-2">
+        <div class="col-md-6  mt-2">
+            <div class="card l-bg-blue-dark">
+                <div class="card-body p-4">
+                    <div class="card-icon card-icon-large"><i class="bi bi-tablet-landscape"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.ValuesDelinquency)</h5>
+                    <canvas id="graficoInadimplencia"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6  mt-2">
+            <div class="card l-bg-blue-dark">
+                <div class="card-body p-4">
+                    <div class="card-icon card-icon-large"><i class="bi bi-wallet2"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.ValuesPastDue)</h5>
+                    <canvas id="graficoReceita"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/dashBoard.js"></script>
+<script>
+    $(document).ready(function () {
+        var dashboardData = @Html.Raw(Json.Serialize(Model));
+        document.getElementById('li-dashboard').classList.add('active');
+        InitDelinquency(dashboardData.valuesDelinquency, "@ViewBag.filterDateInit.ToString("yyyy-MM")", "@ViewBag.filterDateFinal.ToString("yyyy-MM")");
+        InitPastDue(dashboardData.valuesPastDue, "@ViewBag.filterDateInit.ToString("yyyy-MM")", "@ViewBag.filterDateFinal.ToString("yyyy-MM")");
+    });
+</script>
