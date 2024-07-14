@@ -82,8 +82,8 @@ namespace Infrastructure.Persistence
             var database = "MASTERINVOICE";
             var connectionString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}; Integrated Security=False;TrustServerCertificate=True";
             //return "Data Source=DESKTOP-D47FKN4\\SQLEXPRESS;Initial Catalog=MASTERINVOICE;Integrated Security=True;TrustServerCertificate =True";
-            //return connectionString;
-            return "Data Source=DESKTOP-D47FKN4\\SQLEXPRESS;Initial Catalog=MASTERINVOICE;Integrated Security=True;TrustServerCertificate =True";
+            return connectionString;
+            //return "Data Source=DESKTOP-D47FKN4\\SQLEXPRESS;Initial Catalog=MASTERINVOICE;Integrated Security=True;TrustServerCertificate =True";
         }
 
     }
