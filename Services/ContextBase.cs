@@ -85,13 +85,15 @@ namespace Infrastructure.Persistence
 
         public string ObterStringConexao()
         {
-            string hostIp = "localhost";
-
-            // String de conexão ajustada
-            //return $"Data Source={hostIp},1450;Initial Catalog=MASTERINVOICE;User ID=sa;Password=numsey#1234;Connect Timeout=15;Encrypt=False;Trusted_Connection=True;TrustServerCertificate=True";
-
+            var server = "sqldata";
+            var port = "1433"; // Default SQL Server port
+            var user =  "SA"; // Warning do not use the SA account
+            var password = "numsey#1234";
+            var database = "MASTERINVOICE";
+            var connectionString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}; Integrated Security=False;TrustServerCertificate=True";
+            //return "Data Source=DESKTOP-D47FKN4\\SQLEXPRESS;Initial Catalog=MASTERINVOICE;Integrated Security=True;TrustServerCertificate =True";
+            //return connectionString;
             return "Data Source=DESKTOP-D47FKN4\\SQLEXPRESS;Initial Catalog=MASTERINVOICE;Integrated Security=True;TrustServerCertificate =True";
-
         }
 
     }

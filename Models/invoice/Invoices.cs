@@ -35,7 +35,7 @@ namespace MasterInvoice.Models.invoice
         public string InvoiceDoc { get; set; } // Documento da nota fiscal
 
         [MaxLength(255)]
-        [Display(Name = "Doc. do boleto bancári")]
+        [Display(Name = "Doc. do boleto bancário")]
         public string BillDoc { get; set; } // Documento do boleto bancário
 
         [Required]

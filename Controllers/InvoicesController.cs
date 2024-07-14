@@ -22,9 +22,7 @@ namespace MasterInvoice.Controllers
         {
             try
             {
-                // Aplicar filtros se houver valores nos parâmetros
-                
-                var invoices = await _invoiceService.GetAllInvoices(filtroMesEmissao, filtroMesCobranca, filtroMesPagamento, filtroStatusNota);
+                List<Invoices> invoices = await _invoiceService.GetAllInvoices(filtroMesEmissao, filtroMesCobranca, filtroMesPagamento, filtroStatusNota);
 
                 ViewBag.FiltroMesEmissao = filtroMesEmissao;
                 ViewBag.FiltroMesCobranca = filtroMesCobranca;

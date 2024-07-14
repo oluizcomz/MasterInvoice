@@ -1,128 +1,81 @@
-﻿@{
+﻿@model MasterInvoice.Models.dashBoard.DashBoardModel
+@{
     ViewData["Title"] = "Dashboard";
 }
-<style>
-    .card {
-        background-color: #fff;
-        border-radius: 10px;
-        border: none;
-        position: relative;
-        margin-bottom: 30px;
-        box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-    }
-
-    .l-bg-cherry {
-        background: linear-gradient(to right, #493240, #F02D6E) !important;
-        color: #fff;
-    }
-
-    .l-bg-blue-dark {
-        background: linear-gradient(to right, #373b44, #4286f4) !important;
-        color: #fff;
-    }
-
-    .l-bg-green-dark {
-        background: linear-gradient(to right, #0a504a, #38ef7d) !important;
-        color: #fff;
-    }
-
-    .l-bg-orange-dark {
-        background: linear-gradient(to right, #a86008, #ffba56) !important;
-        color: #fff;
-    }
-
-    
-
-    .card .card-icon {
-        text-align: center;
-        line-height: 50px;
-        margin-left: 15px;
-        color: #000;
-        position: absolute;
-        right: -5px;
-        top: 20px;
-        opacity: 0.1;
-        font-size: 100px;
-    }
-
-    .l-bg-cyan {
-        background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
-        color: #fff;
-    }
-
-    .l-bg-green {
-        background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
-        color: #fff;
-    }
-
-    .l-bg-orange {
-        background: linear-gradient(to right, #f9900e, #ffba56) !important;
-        color: #fff;
-    }
-
-    .l-bg-cyan {
-        background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
-        color: #fff;
-    }
-</style>
+<link rel="stylesheet" href="~/css/dashBoard.css" />
 
 <div class="container">
-    
+    <form asp-action="Index" method="get">
+        <div class="row my-2">
+            <div class="col-sm d-flex justify-content-end align-items-center">
+                <div class="d-flex">
+                    <label for="filterDateInit" class="me-2">Período:</label>
+                    <input type="month" id="filterDateInit" name="filterDateInit" class="form-control me-2" value="@ViewBag.filterDateInit?.ToString("yyyy-MM")">
+                    <label for="filterDateFinal" class="me-2">até</label>
+                    <input type="month" id="filterDateFinal" name="filterDateFinal" class="form-control me-2" value="@ViewBag.filterDateFinal?.ToString("yyyy-MM")">
+                    <button type="submit" class="btn btn-outline-primary">Filtrar</button>
+                </div>
+            </div>
+        </div>
+
+                
+    </form>
+
     <!-- Indicadores -->
     <div class="row">
-        <div class="col-md-4 mt-4">
+        <div class="col-md-4 mt-2">
             <div class="card l-bg-cherry">
                 <div class="card-body p-4">
                     <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
-                    <h5 class="card-title mb-4">Notas Emitidas</h5>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.Issued)</h5>
                     <div class="row align-items-center mb-2 d-flex">
                         <h2 class="d-flex align-items-center mb-0" id="Issued">
-                            R$ 0,0
+                           R$ @Model.Issued
                         </h2>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mt-4">
+        <div class="col-md-4 mt-2">
             <div class="card l-bg-cherry">
                 <div class="card-body p-4">
-                    <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
-                    <h5 class="card-title mb-4">Notas Sem Cobrança</h5>
+                    <div class="card-icon card-icon-large"><i class="bi bi-basket3"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.NoCharge)</h5>
                     <div class="row align-items-center mb-2 d-flex">
-                        <h2 class="d-flex align-items-center mb-0" id="NoCharge">R$ 0,00</h2>
+                        <h2 class="d-flex align-items-center mb-0" id="NoCharge">R$ @Model.NoCharge</h2>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4  mt-4">
+        <div class="col-md-4 mt-2">
             <div class="card l-bg-cherry">
                <div class="card-body p-4">
-                    <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
-                    <h5 class="card-title mb-4">Notas Vencidas</h5>
+                    <div class="card-icon card-icon-large"><i class="bi bi-cash"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.LatePayment)</h5>
                     <div class="row align-items-center mb-2 d-flex">
-                        <h2 class="d-flex align-items-center mb-0" id="LatePayment">R$ 0,00</h2>
+                        <h2 class="d-flex align-items-center mb-0" id="LatePayment">R$ @Model.LatePayment</h2>
                     </div>
                </div>
             </div>
         </div>
-        <div class="col-md-4  mt-4">
+        <div class="col-md-4 mt-2">
             <div class="card l-bg-cherry">
                 <div class="card-body p-4">
-                    <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
-                    <h5 class="card-title mb-4">Notas a Vencer</h5>
+                    <div class="card-icon card-icon-large"><i class="bi bi-cash-coin"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.DuePayment)</h5>
                     <div class="row align-items-center mb-2 d-flex">
-                        <h2 class="d-flex align-items-center mb-0" id="DuePayment">R$ 0,00</h2>
+                        <h2 class="d-flex align-items-center mb-0" id="DuePayment">R$ @Model.DuePayment</h2>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4  mt-4">
+        <div class="col-md-4  mt-2">
             <div class="card l-bg-cherry">
                 <div class="card-body p-4">
-                    <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
-                    <h5 class="card-title mb-4">Notas Pagas</h5>
+                    <div class="card-icon card-icon-large"><i class="bi bi-currency-dollar"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.PaymentMade)</h5>
                     <div class="row align-items-center mb-2 d-flex">
-                        <h2 class="d-flex align-items-center mb-0" id="PaymentMade">R$ 0,00</h2>
+                        <h2 class="d-flex align-items-center mb-0" id="PaymentMade">R$@Model.PaymentMade</h2>
                     </div>
                 </div>
             </div>
@@ -132,20 +85,20 @@
 
     <!-- Gráficos -->
     <div class="row  mt-2">
-        <div class="col-md-6  mt-4">
+        <div class="col-md-6  mt-2">
             <div class="card l-bg-blue-dark">
                 <div class="card-body p-4">
-                    <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
-                    <h5 class="card-title mb-4">Inadimplência</h5>
+                    <div class="card-icon card-icon-large"><i class="bi bi-tablet-landscape"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.ValuesDelinquency)</h5>
                     <canvas id="graficoInadimplencia"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-md-6  mt-4">
+        <div class="col-md-6  mt-2">
             <div class="card l-bg-blue-dark">
                 <div class="card-body p-4">
-                    <div class="card-icon card-icon-large"><i class="bi bi-cart"></i></div>
-                    <h5 class="card-title mb-4">Receita Recebida</h5>
+                    <div class="card-icon card-icon-large"><i class="bi bi-wallet2"></i></div>
+                    <h5 class="card-title mb-4">@Html.DisplayNameFor(model => model.ValuesPastDue)</h5>
                     <canvas id="graficoReceita"></canvas>
                 </div>
             </div>
@@ -153,203 +106,15 @@
     </div>
 
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/dashBoard.js"></script>
 <script>
-    var dashboardData = @Html.Raw(Json.Serialize(Model));
-    const mesesAbreviados = [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ];
-    let today = new Date();
-    let twelveMonthsAgo = new Date(today);
-    twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
-
-    let startDate = `${twelveMonthsAgo.getMonth() + 1}/${twelveMonthsAgo.getFullYear()}`;
-    let endDate = `${today.getMonth() + 1}/${today.getFullYear()}`;
-    var meses = monthsBetweenDates(startDate, endDate);
-    
-    function formatCurrency(value) {
-        var formattedValue = parseFloat(value).toFixed(2);
-        return 'R$ ' + formattedValue.replace('.', ',');
-    }
-
-    function monthsBetweenDates(startDate, endDate) {
-        const parseCustomDate = (dateString) => {
-            const [monthStr, yearStr] = dateString.split('/');
-            return new Date(parseInt(yearStr), parseInt(monthStr) - 1, 1);
-        };
-
-        const start = parseCustomDate(startDate);
-        const end = parseCustomDate(endDate);
-
-        const months = [];
-        let currentDate = new Date(start);
-
-        while (currentDate <= end) {
-            months.push(new Date(currentDate));
-            currentDate.setMonth(currentDate.getMonth() + 1);
-        }
-
-        return months;
-    }
-
-    function InitCards(){
-        document.getElementById('Issued').textContent = formatCurrency(dashboardData.issued);
-        document.getElementById('NoCharge').textContent = formatCurrency(dashboardData.noCharge);
-        document.getElementById('LatePayment').textContent = formatCurrency(dashboardData.latePayment);
-        document.getElementById('DuePayment').textContent = formatCurrency(dashboardData.duePayment);
-        document.getElementById('PaymentMade').textContent = formatCurrency(dashboardData.paymentMade);
-    }
-    function InitDelinquency(){
-        var valoresInadimplencia = new Array(meses.length).fill(0);
-
-        dashboardData.valuesDelinquency.forEach(function (item) {
-            var valor = parseFloat(item.value);
-            var mesIndex = meses.findIndex(m => `${m.getMonth() + 1}/${m.getFullYear()}` === item.month);
-            valoresInadimplencia[mesIndex] = valor;
-        });
-
-        var ctxInadimplencia = document.getElementById('graficoInadimplencia').getContext('2d');
-        var graficoInadimplencia = new Chart(ctxInadimplencia, {
-            type: 'bar',
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        displayColors: false,
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                var yLabel = tooltipItem.raw.toFixed(2); // Formata para duas casas decimais
-                                return 'R$ ' + yLabel.replace('.', ',');
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            lineWidth: 1,
-                            color: '#212529',
-                        },
-
-                        ticks: {
-
-                            color: '#fff',
-                            callback: function (value) {
-                                return 'R$ ' + value.toLocaleString('pt-BR');
-                            }
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-
-                            color: '#fff',
-                        }
-                    }
-                }
-            },
-            data: {
-                labels: meses.map(mes => mesesAbreviados[mes.getMonth()]),
-                datasets: [{
-                    label: '',
-                    data: valoresInadimplencia,
-                    borderColor: '#dc3545',
-                    backgroundColor: '#fb6340',
-                    borderWidth: 2,
-                    borderRadius: 5,
-                    borderSkipped: false,
-                    barPercentage: 0.4
-                }]
-            },
-        });
-
-    }
-    function InitPastDue(){
-        var valoresReceitaRecebida = new Array(meses.length).fill(0);
-
-        dashboardData.valuesPastDue.forEach(function (item) {
-            var valor = parseFloat(item.value);
-            var mesIndex = meses.findIndex(m => `${m.getMonth() + 1}/${m.getFullYear()}` === item.month);
-            valoresReceitaRecebida[mesIndex] = valor;
-        });
-        var ctxReceita = document.getElementById('graficoReceita').getContext('2d');
-        var graficoReceita = new Chart(ctxReceita, {
-            type: 'line',
-            options: {
-                scales: {
-                    y: {
-                        grid: {
-                            lineWidth: 1,
-                            color: '#fb6340',
-                            zeroLineColor: '#fb6340'
-                        },
-
-                        ticks: {
-                            color: '#fff',
-                            callback: function (value) {
-                                    return '$' + value;
-                            }
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            color: '#fff'
-                        }
-
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (item) {
-                                var label = item.dataset.label || '';
-                                var yLabel = item.raw;
-                                var content = '';
-
-                                if (item.chart.data.datasets.length > 1) {
-                                    content += '<span class="popover-body-label mr-auto">' + label + '</span>';
-                                }
-
-                                content += '$' + yLabel ;
-                                return content;
-                            }
-                        }
-                    }
-                }
-            },
-            data: {
-                labels: meses.map(mes => mesesAbreviados[mes.getMonth()]),
-
-                datasets: [{
-                    cubicInterpolationMode: 'monotone',
-                    fill: true,
-                    tension: 0.4,
-                    borderColor: '#84c0ec',
-                    label: 'Performance',
-                    data: valoresReceitaRecebida
-                }]
-            }
-        });
-
-    }
-    
     $(document).ready(function () {
+        var dashboardData = @Html.Raw(Json.Serialize(Model));
         document.getElementById('li-dashboard').classList.add('active');
-        InitCards();
-        InitDelinquency();
-        InitPastDue(); 
+        InitDelinquency(dashboardData.valuesDelinquency, "@ViewBag.filterDateInit.ToString("yyyy-MM")", "@ViewBag.filterDateFinal.ToString("yyyy-MM")");
+        InitPastDue(dashboardData.valuesPastDue, "@ViewBag.filterDateInit.ToString("yyyy-MM")", "@ViewBag.filterDateFinal.ToString("yyyy-MM")");
     });
- 
 </script>
