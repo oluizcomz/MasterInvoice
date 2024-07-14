@@ -1,7 +1,7 @@
 # MasterInvoice
  # Projeto TechNation - Sistema Financeiro
 
-Este projeto é um sistema financeiro desenvolvido como parte do teste técnico da TechNation para avaliação de habilidades Fullstack.
+Este projeto ï¿½ um sistema financeiro desenvolvido como parte do teste tï¿½cnico da TechNation para avaliaï¿½ï¿½o de habilidades Fullstack.
 
 ## Capturas de Tela
 
@@ -10,30 +10,27 @@ Este projeto é um sistema financeiro desenvolvido como parte do teste técnico da
 
 ## Tecnologias Utilizadas
 
-- Frontend: HTML, CSS, JavaScript, jQuery, Bootstrap, chat.js para gráficos
+- Frontend: HTML, CSS, JavaScript, jQuery, Bootstrap, chat.js para grï¿½ficos
 - Backend: C#, .NET LTS, SQL Server
 
-## Instalação e Configuração
+## Instalaï¿½ï¿½o e Configuraï¿½ï¿½o
 
-1. Clone o repositório.
-2. Instale as dependências do frontend com `npm install`.
-3. Configure o banco de dados SQL Server conforme `SQL/`.
-4.  Execute o backend e o frontend.
+1. Clone o repositï¿½rio.
+4.  Execute o backend e o MasterInvoiceWeb.
+     
 
-## Estrutura de Diretórios
+## Estrutura de Diretï¿½rios
 
-- `backend/`: Contém o código do backend em C#.
-- `frontend/`: Contém o código do frontend em HTML, CSS, JS.
-
-
+- `backend/`: Contï¿½m o cï¿½digo do backend em C#.
+- `frontend/`: Contï¿½m o cï¿½digo do frontend em HTML, CSS, JS.
 
 
 
 ## Contato
 
-Para mais informações, entre em contato através de [luiznetosilva@hotmail.com](mailto:luiznetosilva@hotmail.com).
+Para mais informaï¿½ï¿½es, entre em contato atravï¿½s de [luiznetosilva@hotmail.com](mailto:luiznetosilva@hotmail.com).
 
-## Correções
+## Correï¿½ï¿½es
  Alterar cards do dashboard
- Melhor desempenho reuicição do dashboard 
+ Melhor desempenho reuiciï¿½ï¿½o do dashboard 
  ALterar DOCK

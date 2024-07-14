@@ -23,7 +23,7 @@ builder.Services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGenerics<>));
 builder.Services.AddSingleton<IInvoice, RepositoryInvoice>();
 
 var app = builder.Build();
-//DatabaseManagementService.MigrationInitialisation(app);
+DatabaseManagementService.MigrationInitialisation(app);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

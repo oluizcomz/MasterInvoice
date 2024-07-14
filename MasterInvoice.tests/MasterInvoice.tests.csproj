@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MasterInvoice\MasterInvoice.csproj" />
+    <ProjectReference Include="..\MasterInvoice\MasterInvoiceWeb.csproj" />
   </ItemGroup>
 
 </Project>

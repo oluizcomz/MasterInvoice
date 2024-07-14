@@ -1,28 +1,49 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 8081
-EXPOSE 80
 
-ENV ASPNETCORE_URLS=http://+:8081
+# Stage 3: Build entities project
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS entities-build
+WORKDIR /src/entities
+COPY ["../Entities/Entities.csproj", "./"]
+RUN dotnet restore "Entities.csproj"
+COPY Entities/ .
+RUN dotnet build "Entities.csproj" -c Release -o /app/build/entities
 
+
+
+# Stage 1: Build domain project
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS domain-build
+WORKDIR /src/domain
+COPY ["../Domain/Domain.csproj", "./"]
+RUN dotnet restore "Domain.csproj"
+COPY Domain/ .
+RUN dotnet build "Domain.csproj" -c Release -o /app/build/domain
+
+# Stage 2: Build infrastructure project
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS infrastructure-build
+WORKDIR /src/infrastructure
+COPY ["../Infrastructure/Infrastructure.csproj", "./"]
+RUN dotnet restore "Infrastructure.csproj"
+COPY Infrastructure/ .
+RUN dotnet build "Infrastructure.csproj" -c Release -o /app/build/infrastructure
+
+# Stage 4: Build application
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["MasterInvoice.csproj", "MasterInvoice/"]
-RUN dotnet restore "MasterInvoice/MasterInvoice.csproj"
-WORKDIR "/src/MasterInvoice"
+WORKDIR /src/app
+COPY ["MasterInvoice.csproj", "./"]
+RUN dotnet restore "MasterInvoice.csproj"
 COPY . .
+RUN dotnet build "MasterInvoice.csproj" -c Release -o /app/build/app
 
-RUN dotnet build "MasterInvoice.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
+# Stage 5: Publish application
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "MasterInvoice.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MasterInvoice.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
+# Stage 6: Final runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY --from=entities-build /app/build/entities ./entities
+COPY --from=domain-build /app/build/domain ./domain
+COPY --from=infrastructure-build /app/build/infrastructure ./infrastructure
 ENTRYPOINT ["dotnet", "MasterInvoice.dll"]
