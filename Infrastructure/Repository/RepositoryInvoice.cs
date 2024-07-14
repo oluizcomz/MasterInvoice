@@ -13,10 +13,6 @@ namespace Infrastructure.Repository.Generics
         {
             optionsBuilder = new DbContextOptions<ContextBase>();
         }
-        public RepositoryInvoice(DbContextOptions<ContextBase> options)
-        {
-            optionsBuilder = options;
-        }
         public async Task<IList<Invoice>> GetFiltered(DateTime? IssueDate = null, DateTime? BillingDate = null, DateTime? PaymentDate = null, string? status = null)
         {
             using (var context = new ContextBase(optionsBuilder))
