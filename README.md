@@ -17,7 +17,12 @@ Este projeto � um sistema financeiro desenvolvido como parte do teste t�cnic
 
 1. Clone o reposit�rio.
 4.  Execute o backend e o MasterInvoiceWeb.
-     
+
+## DOCKER
+    docker build -t masterinvoice .
+    docker compose  -f "docker-compose.yml" up -d --build sqldata 
+    (wait for sqldata to be ready)
+    docker compose  -f "docker-compose.yml" up -d --build masterinvoice
 
 ## Estrutura de Diret�rios
 
